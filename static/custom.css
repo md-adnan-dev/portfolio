@@ -1,0 +1,231 @@
+/* --- Custom CSS for Works Page Card Alignment --- */
+
+/* === Row Styling === */
+/* Target the rows containing the project cards */
+#myCarousel .carousel-inner .item .row {
+  display: flex; /* KEY: Make the row a flex container */
+  flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+  flex-direction: row; /* Explicitly set horizontal direction (default, but good practice) */
+  /* Override Bootstrap's negative margins that can interfere with flexbox */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === Column Styling === */
+/* Target the columns within those specific rows */
+#myCarousel .carousel-inner .item .row > [class*="col-"] {
+  /* --- Layout as Flex Items --- */
+  float: none; /* KEY: Remove Bootstrap float behavior */
+  display: flex; /* KEY: Make the column itself a flex container */
+  flex-direction: column; /* Stack content INSIDE the column vertically (image + card) */
+
+  /* --- Sizing --- */
+  /* Ensure columns respect their intended width in a flex context */
+  /* You might only need width, but flex-basis/max-width are safer */
+  width: 33.333333%; /* Bootstrap's col-sm-4 width */
+  flex-basis: 33.333333%; /* Base size for flex item */
+  max-width: 33.333333%; /* Prevent growing beyond intended size */
+
+  /* --- Spacing --- */
+  /* Restore Bootstrap's padding */
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 30px; /* Add spacing below columns if they wrap */
+}
+
+/* === Card Styling === */
+/* Target BOTH card container types within the columns */
+#myCarousel .carousel-inner .item .row > [class*="col-"] .card-container,
+#myCarousel .carousel-inner .item .row > [class*="col-"] .card-container-lg {
+  flex-grow: 1; /* KEY: Allow the card to grow vertically to fill the column */
+  display: flex; /* Use flex inside the card */
+  flex-direction: column; /* Stack card content (title, p, button) vertically */
+  width: 100%; /* Ensure card fills the column width */
+  /* height: 100%; remove this, flex-grow handles height */
+}
+
+/* === Card Content Styling === */
+/* Target the paragraphs within BOTH card types */
+#myCarousel .carousel-inner .item .row > [class*="col-"] .card-container p,
+#myCarousel .carousel-inner .item .row > [class*="col-"] .card-container-lg p {
+  flex-grow: 1; /* Paragraph takes available vertical space */
+  margin-bottom: 15px; /* Space above the button */
+}
+
+/* Target the buttons within BOTH card types */
+#myCarousel .carousel-inner .item .row > [class*="col-"] .card-container .btn,
+#myCarousel
+  .carousel-inner
+  .item
+  .row
+  > [class*="col-"]
+  .card-container-lg
+  .btn {
+  margin-top: auto; /* KEY: Push button to the bottom */
+  width: fit-content; /* Keep button sized to its content */
+  align-self: flex-start; /* Align button to the left */
+}
+
+/* === Image Styling === */
+/* Optional: Ensure images stay responsive */
+#myCarousel
+  .carousel-inner
+  .item
+  .row
+  > [class*="col-"]
+  .black-image-project-hover
+  img {
+  width: 100%;
+  height: auto;
+  display: block; /* Remove extra space below image */
+}
+
+/* === Responsive Adjustments === */
+/* On smaller screens where Bootstrap columns stack, reset flex behavior */
+@media (max-width: 767px) {
+  /* Bootstrap's breakpoint for -sm- */
+  #myCarousel .carousel-inner .item .row {
+    display: block; /* Revert row to standard block layout */
+  }
+
+  #myCarousel .carousel-inner .item .row > [class*="col-"] {
+    display: block; /* Revert column to standard block layout */
+    width: 100%; /* Make columns full width */
+    max-width: 100%;
+    flex-basis: auto;
+    margin-bottom: 30px; /* Ensure spacing */
+  }
+
+  /* No need for flex-grow on card/paragraph on small screens */
+  #myCarousel .carousel-inner .item .row > [class*="col-"] .card-container,
+  #myCarousel .carousel-inner .item .row > [class*="col-"] .card-container-lg,
+  #myCarousel .carousel-inner .item .row > [class*="col-"] .card-container p,
+  #myCarousel
+    .carousel-inner
+    .item
+    .row
+    > [class*="col-"]
+    .card-container-lg
+    p {
+    flex-grow: 0;
+  }
+
+  /* Button doesn't need margin-top: auto */
+  #myCarousel .carousel-inner .item .row > [class*="col-"] .card-container .btn,
+  #myCarousel
+    .carousel-inner
+    .item
+    .row
+    > [class*="col-"]
+    .card-container-lg
+    .btn {
+    margin-top: 0;
+  }
+}
+
+/* --- End Custom CSS --- */
+
+/* --- Custom CSS for Works Page Image Sizing --- */
+
+#myCarousel
+  .carousel-inner
+  .item
+  .row
+  > [class*="col-"]
+  .black-image-project-hover
+  img {
+  width: 100%; /* Make image fill the column width */
+  height: 320px; /* SET YOUR DESIRED FIXED HEIGHT HERE (e.g., 220px) */
+  object-fit: cover; /* Cover the area, maintain aspect ratio, crop if needed */
+  object-position: center; /* Center the image content vertically/horizontally */
+  display: block; /* Remove any potential extra space below inline images */
+}
+
+#computer-vision-project img {
+  object-fit: contain;
+  background-color: #000;
+}
+
+/* --- End Custom CSS for Image Sizing --- */
+
+p.work-summary {
+  /* Or just 'p' if it's the only paragraph like this */
+  max-width: 120ch; /* Limits line length to ~70 characters for easier reading */
+  margin-left: auto; /* Centers the block if parent is wider */
+  margin-right: auto; /* Centers the block if parent is wider */
+  margin-top: 1em; /* Adds space below the "Works" title */
+  margin-bottom: 2em; /* Adds space below the paragraph */
+  line-height: 1.6; /* Increases space between lines */
+  font-size: 1.15rem; /* Standard font size (adjust as needed) */
+  color: #333; /* Slightly softer than pure black */
+  padding: 20px; /* Add some space around the text */
+  border-radius: 8px; /* Softly rounded corners */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth transition */
+  /* Keeps the default font unless you want to change it */
+}
+
+p.work-summary:hover {
+  background-color: #f0f0f0; /* A light grey background */
+  color: #000; /* Optional: darken text color for contrast */
+  cursor: pointer; /* Change cursor to indicate it's interactive */
+}
+
+.zoom-effect {
+  transition: transform .2s;
+}
+
+.zoom-effect:hover {
+  transform: scale(1.1);
+}
+
+.title-image-container {
+  max-height: 40vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-image-container img {
+  width: 100%;
+  height: auto;
+}
+
+/* --- Navigation panel for Works page --- */
+.project-nav-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border: 6px solid #000;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.project-nav-panel .project-pill {
+  white-space: nowrap;
+  border: 5px solid #000;
+  border-radius: 24px;
+  padding: 8px 16px;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 6px 8px;
+}
+
+.project-nav-panel .project-pill:focus,
+.project-nav-panel .project-pill:hover {
+  background: #f5f5f5;
+}
+
+@media (max-width: 767px) {
+  .project-nav-panel { gap: 8px; }
+}
+/* --- End navigation panel styles --- */
+
+/* Simulate the image hover highlight programmatically */
+.black-image-project-hover.simulate-hover img {
+  -webkit-filter: none !important;
+  filter: none !important;
+}
